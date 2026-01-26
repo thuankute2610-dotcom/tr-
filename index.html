@@ -19,7 +19,13 @@
     <!-- Liên kết file CSS để tạo giao diện -->
      
 </head>
-
+<script>
+    // Kiểm tra xem người dùng đã đi qua trang Welcome chưa bằng SessionStorage
+    if (!sessionStorage.getItem('visitedWelcome')) {
+        // Nếu chưa, chuyển hướng ngay sang trang welcome.html
+        window.location.href = "welcome.html";
+    }
+</script>
 <body>
 <!-- Phần hiển thị nội dung trang -->
 
