@@ -1,0 +1,427 @@
+/* --- 1. CẤU HÌNH CHUNG --- */
+/* :root dùng để khai báo biến CSS toàn cục (CSS Variables) */
+:root {
+    --primary-color: #ff8c00;      /* Màu chính (xanh dương) dùng cho header, nút */
+    --secondary-color: #ff9a00;    /* Màu phụ (cam) dùng cho hiệu ứng, gradient */
+    --danger-color: #d70018;       /* Màu cảnh báo / giá tiền (đỏ) */
+    --dark-bg: #1a1a1a;            /* Màu nền tối */
+    --light-bg: #f0f2f5;           /* Màu nền sáng cho toàn trang */
+    --text-color: #1a1a1a;         /* Màu chữ mặc định */
+}
+
+/* Áp dụng chung cho thẻ body và html */
+body, html {
+    margin: 0;                     /* Xóa margin mặc định của trình duyệt */
+    padding: 0;                    /* Xóa padding mặc định */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font chữ */
+    background-color: var(--light-bg); /* Nền trang lấy từ biến */
+    color: var(--text-color);      /* Màu chữ lấy từ biến */
+    overflow-x: hidden;            /* Ẩn thanh cuộn ngang */
+}
+
+/* --- 2. THANH ĐIỀU HƯỚNG (HEADER) --- */
+.nav-container {
+    background-color: var(--primary-color); /* Nền header */
+    padding: 12px 5%;              /* Trên-dưới 12px, trái-phải 5% */
+    display: flex;                 /* Dùng Flexbox */
+    justify-content: space-between;/* Đẩy trái - phải */
+    align-items: center;           /* Căn giữa theo chiều dọc */
+    position: sticky;              /* Header dính khi cuộn */
+    top: 0;                        /* Dính từ mép trên */
+    z-index: 1000;                 /* Nổi lên trên các phần khác */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Đổ bóng */
+}
+
+/* Link bên trái của navbar */
+.nav-left .btn-nav {
+    color: white;                  /* Màu chữ trắng */
+    text-decoration: none;         /* Bỏ gạch chân */
+    font-weight: bold;             /* Chữ đậm */
+    font-size: 1.1rem;             /* Kích thước chữ */
+}
+
+/* Khối bên phải navbar */
+.nav-right {
+    display: flex;                 /* Sắp xếp theo hàng ngang */
+    align-items: center;           /* Căn giữa theo trục dọc */
+    gap: 15px;                     /* Khoảng cách giữa các phần tử */
+    flex-wrap: nowrap;             /* Không cho các phần tử xuống dòng */
+}
+
+/* --- 3. NÚT BẤM (BUTTONS) --- */
+.btn-auth {
+    padding: 8px 20px;             /* Khoảng cách trong nút */
+    border-radius: 25px;           /* Bo tròn nút */
+    font-weight: bold;             /* Chữ đậm */
+    cursor: pointer;               /* Biến chuột thành hình tay */
+    transition: all 0.3s ease;     /* Hiệu ứng mượt khi hover */
+    white-space: nowrap;           /* Không cho chữ xuống dòng */
+}
+
+/* Nút Đăng nhập - Viền trắng */
+.btn-auth.login {
+    background: transparent;       /* Nền trong suốt */
+    color: white;                  /* Chữ trắng */
+    border: 2px solid white;       /* Viền trắng */
+}
+
+/* Hiệu ứng hover nút đăng nhập */
+.btn-auth.login:hover {
+    background: white;             /* Nền trắng */
+    color: var(--primary-color);   /* Chữ xanh */
+}
+
+/* Nút Đăng ký - Màu Gradient nổi bật */
+.btn-auth.register {
+    background: linear-gradient(135deg, #ffce00 0%, var(--secondary-color) 100%);
+                                     /* Gradient vàng → cam */
+    color: #333;                   /* Màu chữ tối */
+    border: none;                  /* Không viền */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Đổ bóng */
+}
+
+/* Hover nút đăng ký */
+.btn-auth.register:hover {
+    transform: translateY(-2px);   /* Nhích nút lên 2px */
+    box-shadow: 0 6px 15px rgba(255, 154, 0, 0.4); /* Bóng đậm hơn */
+}
+
+/* Nút Giỏ hàng */
+.btn-cart {
+    background: white;             /* Nền trắng */
+    color: var(--primary-color);   /* Chữ xanh */
+    padding: 10px 18px;            /* Kích thước nút */
+    border-radius: 25px;           /* Bo tròn */
+    text-decoration: none;         /* Bỏ gạch chân */
+    font-weight: bold;             /* Chữ đậm */
+    display: flex;                 /* Flex để icon + số */
+    align-items: center;           /* Căn giữa theo chiều dọc */
+    gap: 5px;                      /* Khoảng cách icon - số */
+    white-space: nowrap;           /* Không xuống dòng */
+}
+
+/* Số lượng sản phẩm trong giỏ */
+#cart-count {
+    background: var(--danger-color); /* Nền đỏ */
+    color: white;                  /* Chữ trắng */
+    padding: 2px 8px;              /* Khoảng cách trong */
+    border-radius: 10px;           /* Bo tròn */
+    font-size: 0.8rem;             /* Cỡ chữ nhỏ */
+}
+
+/* --- 4. TRANG DANH SÁCH SẢN PHẨM (INDEX) --- */
+h1 {
+    text-align: center;            /* Căn giữa chữ */
+    margin: 40px 0;                /* Trên dưới 40px */
+    text-transform: uppercase;     /* Viết hoa toàn bộ */
+    color: var(--dark-bg);         /* Màu chữ đậm */
+}
+
+/* Khung chứa danh sách sản phẩm */
+.flower-container {
+    display: grid;                 /* Dùng CSS Grid */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                                     /* Tự chia cột theo kích thước */
+    gap: 25px;                     /* Khoảng cách giữa các card */
+    padding: 20px 5%;              /* Padding */
+    max-width: 1200px;             /* Giới hạn chiều rộng */
+    margin: 0 auto;                /* Căn giữa */
+}
+
+/* Thẻ sản phẩm */
+.flower-card {
+    background: white;             /* Nền trắng */
+    padding: 20px;                 /* Khoảng cách trong */
+    border-radius: 15px;           /* Bo góc */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Đổ bóng nhẹ */
+    text-align: center;            /* Căn giữa nội dung */
+    transition: 0.3s;              /* Hiệu ứng hover */
+}
+
+/* Hover thẻ sản phẩm */
+.flower-card:hover {
+    transform: translateY(-10px);  /* Nâng card lên */
+    box-shadow: 0 10px 25px rgba(0,123,255,0.2); /* Bóng xanh */
+}
+
+/* Ảnh sản phẩm */
+.flower-card img {
+    width: 100%;                   /* Chiều rộng full */
+    height: 200px;                 /* Chiều cao cố định */
+    object-fit: contain;           /* Giữ nguyên tỉ lệ ảnh */
+    margin-bottom: 15px;           /* Cách dưới */
+}
+
+/* Tên sản phẩm */
+.flower-card h3 {
+    font-size: 1.1rem;             /* Cỡ chữ */
+    margin: 10px 0;                /* Khoảng cách */
+}
+
+/* Giá sản phẩm */
+.flower-card p {
+    color: var(--danger-color);    /* Màu đỏ */
+    font-weight: bold;             /* Chữ đậm */
+    font-size: 1.2rem;             /* Chữ lớn */
+}
+
+/* Ô nhập số lượng */
+.flower-card input[type="number"] {
+    width: 60px;                   /* Chiều rộng */
+    padding: 5px;                  /* Khoảng cách trong */
+    margin-bottom: 10px;           /* Cách dưới */
+    text-align: center;            /* Căn giữa số */
+}
+
+/* Nút thêm vào giỏ */
+.flower-card button {
+    background: var(--primary-color); /* Nền xanh */
+    color: white;                  /* Chữ trắng */
+    border: none;                  /* Không viền */
+    padding: 10px 20px;            /* Kích thước nút */
+    border-radius: 5px;            /* Bo góc */
+    width: 100%;                   /* Full chiều ngang */
+    cursor: pointer;               /* Hình tay khi hover */
+    font-weight: bold;             /* Chữ đậm */
+}
+
+
+/* --- 5. HỆ THỐNG MODAL (ĐĂNG NHẬP/ĐĂNG KÝ) --- */
+/* .modal là lớp phủ nền đen khi mở form đăng nhập / đăng ký */
+.modal {
+    display: none;                 /* Mặc định ẩn modal */
+    position: fixed;               /* Cố định trên màn hình */
+    z-index: 9999;                 /* Luôn nổi trên cùng */
+    left: 0;                       /* Sát mép trái */
+    top: 0;                        /* Sát mép trên */
+    width: 100%;                   /* Rộng toàn màn hình */
+    height: 100%;                  /* Cao toàn màn hình */
+    background: rgba(0,0,0,0.7);   /* Nền đen mờ */
+    justify-content: center;       /* Căn giữa ngang (Flexbox) */
+    align-items: center;           /* Căn giữa dọc (Flexbox) */
+}
+
+/* Khung nội dung modal */
+.modal-content {
+    background: white;             /* Nền trắng */
+    padding: 30px;                 /* Khoảng cách trong */
+    border-radius: 15px;           /* Bo góc mềm */
+    width: 90%;                    /* Chiếm 90% màn hình nhỏ */
+    max-width: 400px;              /* Giới hạn chiều rộng tối đa */
+    position: relative;            /* Làm mốc cho nút đóng */
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3); /* Đổ bóng nổi */
+}
+
+/* Nút đóng (dấu X) */
+.close {
+    position: absolute;            /* Định vị tuyệt đối */
+    top: 15px;                     /* Cách trên 15px */
+    right: 20px;                   /* Cách phải 20px */
+    font-size: 24px;               /* Kích thước dấu X */
+    cursor: pointer;               /* Biến chuột thành hình tay */
+    color: #666;                   /* Màu xám */
+}
+
+/* Tiêu đề trong modal */
+.modal-content h2 {
+    color: var(--primary-color);   /* Màu xanh chủ đạo */
+    margin-bottom: 20px;           /* Cách phần dưới */
+}
+
+/* Các ô nhập liệu text, email, password */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;                   /* Rộng hết khung */
+    padding: 12px;                 /* Khoảng cách trong */
+    margin: 10px 0;                /* Cách trên dưới */
+    border: 1px solid #ddd;        /* Viền xám nhạt */
+    border-radius: 8px;            /* Bo góc */
+    box-sizing: border-box;        /* Không làm tăng kích thước tổng */
+}
+
+/* Nút chính trong modal (Đăng nhập / Đăng ký) */
+.btn-primary.w-100 {
+    background: var(--primary-color); /* Nền xanh */
+    color: white;                  /* Chữ trắng */
+    border: none;                  /* Không viền */
+    padding: 12px;                 /* Kích thước nút */
+    border-radius: 8px;            /* Bo góc */
+    width: 100%;                   /* Chiếm toàn chiều ngang */
+    font-weight: bold;             /* Chữ đậm */
+    cursor: pointer;               /* Chuột hình tay */
+    margin-top: 10px;              /* Cách phía trên */
+}
+
+/* --- 6. CHÂN TRANG (FOOTER) --- */
+/* Toàn bộ khu vực footer */
+.footer {
+    background-color: var(--dark-bg); /* Nền tối */
+    color: #ccc;                    /* Màu chữ xám nhạt */
+    padding: 50px 0 20px;           /* Trên 50px, dưới 20px */
+    margin-top: 60px;               /* Cách phần trên */
+}
+
+/* Khung chứa nội dung footer */
+.footer-container {
+    max-width: 1100px;              /* Giới hạn chiều rộng */
+    margin: 0 auto;                /* Căn giữa */
+    display: flex;                 /* Flexbox */
+    justify-content: space-between;/* Dàn đều các cột */
+    flex-wrap: wrap;               /* Cho xuống dòng khi hẹp */
+    padding: 0 20px;               /* Padding hai bên */
+    gap: 30px;                     /* Khoảng cách giữa các cột */
+}
+
+/* Mỗi cột trong footer */
+.footer-section {
+    flex: 1;                       /* Chia đều độ rộng */
+    min-width: 250px;              /* Rộng tối thiểu */
+}
+
+/* Tiêu đề trong footer */
+.footer-section h3,
+.footer-section h4 {
+    color: white;                  /* Chữ trắng */
+    margin-bottom: 15px;           /* Cách dưới */
+}
+
+/* Danh sách trong footer */
+.footer-section ul {
+    list-style: none;              /* Bỏ dấu chấm đầu dòng */
+    padding: 0;                    /* Bỏ padding mặc định */
+}
+
+/* Mỗi dòng trong danh sách */
+.footer-section ul li {
+    margin-bottom: 8px;            /* Cách dòng */
+}
+
+/* Link trong footer */
+.footer-section a {
+    color: #999;                   /* Màu xám */
+    text-decoration: none;         /* Bỏ gạch chân */
+}
+
+/* Hover link footer */
+.footer-section a:hover {
+    color: var(--primary-color);   /* Đổi sang màu xanh */
+}
+
+/* Phần bản quyền cuối footer */
+.footer-bottom {
+    text-align: center;            /* Căn giữa chữ */
+    padding-top: 30px;             /* Cách trên */
+    margin-top: 30px;              /* Cách phần trên */
+    border-top: 1px solid #333;    /* Đường kẻ trên */
+    font-size: 0.9rem;             /* Chữ nhỏ */
+}
+
+/* Nút Trang chủ mới */
+.btn-home {
+    display: inline-flex;          /* Flex nội tuyến */
+    align-items: center;           /* Căn giữa icon + chữ */
+    gap: 8px;                      /* Khoảng cách icon - chữ */
+    padding: 10px 20px;            /* Kích thước nút */
+    background: rgba(255, 255, 255, 0.15); /* Nền trắng mờ */
+    color: white;                  /* Chữ trắng */
+    text-decoration: none;         /* Bỏ gạch chân */
+    font-weight: bold;             /* Chữ đậm */
+    border-radius: 25px;           /* Bo tròn */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Viền mờ */
+    transition: all 0.3s ease;     /* Hiệu ứng hover mượt */
+    white-space: nowrap;           /* Không xuống dòng */
+}
+
+
+/* Hiệu ứng khi di chuột vào nút Trang chủ */
+.btn-home:hover {
+    background: white;             /* Đổi nền nút thành màu trắng khi hover */
+    color: #007bff;                /* Đổi màu chữ thành xanh chủ đạo */
+    transform: translateY(-2px);   /* Nút nhích lên trên 2px tạo cảm giác nổi */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ khi hover */
+}
+
+/* Đảm bảo icon và chữ căn giữa đẹp mắt */
+.btn-home span {
+    font-size: 1rem;               /* Kích thước chữ/icon bên trong nút */
+}
+
+/* Điều chỉnh lại nav-container để khoảng cách đều hơn */
+.nav-container {
+    padding: 12px 5%;              /* Khoảng cách trên-dưới và trái-phải */
+    display: flex;                 /* Sắp xếp các phần tử theo Flexbox */
+    justify-content: space-between;/* Đẩy đều trái - phải */
+    align-items: center;           /* Căn giữa theo chiều dọc */
+}
+
+/* Bản đồ (iframe) trong footer */
+.footer-section iframe {
+    width: 100%;                   /* Rộng hết cột footer */
+    height: 150px;                 /* Chiều cao bản đồ */
+    border-radius: 8px;            /* Bo tròn góc iframe */
+    transition: 0.3s;              /* Hiệu ứng mượt khi thay đổi */
+}
+
+/* ================= DROPDOWN MENU ================= */
+
+/* Container cha của dropdown */
+.dropdown {
+    position: relative;            /* Làm mốc cho menu con */
+    display: inline-block;         /* Hiển thị dạng inline nhưng có box */
+}
+
+/* Nút chính của dropdown */
+.dropbtn {
+    color: white;                  /* Màu chữ trắng */
+    padding: 15px 20px;            /* Vùng bấm lớn, dễ click */
+    text-decoration: none;         /* Bỏ gạch chân */
+    font-weight: bold;             /* Chữ đậm */
+    display: block;                /* Chiếm toàn chiều ngang */
+    cursor: pointer;               /* Chuột hình tay */
+}
+
+/* Nội dung menu dropdown */
+.dropdown-content {
+    display: none;                 /* Mặc định ẩn menu */
+    position: absolute;            /* Định vị theo dropdown cha */
+    background-color: white;       /* Nền trắng */
+    min-width: 180px;              /* Độ rộng tối thiểu */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2); /* Đổ bóng */
+    z-index: 1001;                 /* Nổi trên các thành phần khác */
+    border-radius: 4px;            /* Bo góc menu */
+    top: 100%;                     /* Nằm ngay dưới nút cha */
+    left: 0;                       /* Căn trái */
+}
+
+/* MẸO: Tạo lớp đệm ảo che lấp khoảng trống giữa nút và menu */
+.dropdown-content::before {
+    content: "";                   /* Tạo phần tử giả */
+    position: absolute;            /* Định vị tuyệt đối */
+    top: -20px;                    /* Đẩy lên trên menu */
+    left: 0;                       /* Căn trái */
+    width: 100%;                   /* Rộng bằng menu */
+    height: 25px;                  /* Chiều cao vùng đệm */
+    background: transparent;       /* Trong suốt (chỉ để bắt hover) */
+}
+
+/* Hiện menu khi rê chuột vào dropdown */
+.dropdown:hover .dropdown-content {
+    display: block;                /* Hiển thị menu */
+}
+
+/* Các mục link bên trong dropdown */
+.dropdown-content a {
+    color: #333 !important;        /* Màu chữ tối (ghi đè CSS khác nếu có) */
+    padding: 12px 16px;            /* Khoảng cách trong mỗi mục */
+    text-decoration: none;         /* Bỏ gạch chân */
+    display: block;                /* Mỗi link chiếm 1 dòng */
+    border-bottom: 1px solid #eee; /* Đường kẻ phân cách */
+}
+
+/* Hiệu ứng hover từng mục menu */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;     /* Nền xám nhạt */
+    color: #007bff !important;     /* Chữ xanh khi hover */
+}
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!-- Khai báo tài liệu HTML5 -->
+
+<html lang="vi">
+<!-- Thẻ gốc của trang web, lang="vi" giúp trình duyệt & SEO hiểu đây là tiếng Việt -->
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Hỗ trợ hiển thị tiếng Việt có dấu -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Giúp giao diện hiển thị tốt trên điện thoại, tablet -->
+
+    <title>Chi tiết máy</title>
+    <!-- Tiêu đề hiển thị trên tab trình duyệt -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- CSS chung cho toàn website -->
+
+    <link rel="stylesheet" href="detail.css">
+    <!-- CSS riêng cho trang chi tiết sản phẩm -->
+</head>
+
+<body>
+<!-- Nội dung hiển thị chính của trang -->
+
+ <div class="nav-container">
+ <!-- Khung chứa thanh điều hướng -->
+
+    <div class="nav-left">
+    <!-- Phần bên trái của nav -->
+
+        <a href="index.html" class="btn-home">
+        <!-- Link quay về trang chủ -->
+
+            🏠 <span>Trang chủ</span>
+            <!-- Icon + chữ trang chủ -->
+        </a>
+    </div>
+    
+    <div class="nav-right" id="auth-buttons">
+    <!-- Phần bên phải của nav: đăng nhập, đăng ký, giỏ hàng -->
+
+        <button class="btn-auth login" onclick="openAuth('login')">
+            Đăng nhập
+        </button>
+        <!-- Nút mở form đăng nhập -->
+
+        <button class="btn-auth register" onclick="openAuth('register')">
+            Đăng ký
+        </button>
+        <!-- Nút mở form đăng ký -->
+        
+        <a href="cart.html" class="btn-nav btn-cart">
+        <!-- Link tới trang giỏ hàng -->
+
+            🛒 Giỏ hàng <span id="cart-count">0</span>
+            <!-- Hiển thị số lượng sản phẩm trong giỏ -->
+        </a>
+    </div>
+</div>
+
+<div id="auth-modal" class="modal" style="display:none;">
+<!-- Popup đăng nhập / đăng ký (ẩn ban đầu) -->
+
+    <div class="modal-content">
+    <!-- Khung nội dung popup -->
+
+        <span class="close"
+        onclick="document.getElementById('auth-modal').style.display='none'">
+            &times;
+        </span>
+        <!-- Nút X đóng popup -->
+
+        <div id="login-form">
+        <!-- Form đăng nhập -->
+
+            <h2>Đăng nhập</h2>
+            <!-- Tiêu đề form -->
+
+            <input type="email" id="login-email"
+                   placeholder="Email" autocomplete="off">
+            <!-- Ô nhập email -->
+
+            <input type="password" id="login-pass"
+                   placeholder="Mật khẩu" autocomplete="new-password">
+            <!-- Ô nhập mật khẩu -->
+
+            <button onclick="handleLogin()" class="btn-primary w-100">
+                ĐĂNG NHẬP
+            </button>
+            <!-- Nút xử lý đăng nhập bằng JavaScript -->
+        </div>
+
+        <div id="register-form" style="display:none;">
+        <!-- Form đăng ký (ẩn mặc định) -->
+
+            <h2>Đăng ký</h2>
+
+            <input type="text" id="reg-name"
+                   placeholder="Họ tên" autocomplete="off">
+            <!-- Ô nhập họ tên -->
+
+            <input type="email" id="reg-email"
+                   placeholder="Email" autocomplete="off">
+            <!-- Ô nhập email -->
+
+            <input type="password" id="reg-pass"
+                   placeholder="Mật khẩu" autocomplete="new-password">
+            <!-- Ô nhập mật khẩu -->
+
+            <button onclick="handleRegister()" class="btn-primary w-100">
+                ĐĂNG KÝ
+            </button>
+            <!-- Nút xử lý đăng ký -->
+        </div>
+    </div>
+</div>
+    
+<div class="container">
+<!-- Khung chính của trang chi tiết -->
+
+    <header class="detail-header">
+    <!-- Header của trang chi tiết -->
+
+        <a href="index.html" class="btn-back">
+            ← Quay lại
+        </a>
+        <!-- Nút quay về trang danh sách -->
+    </header>
+
+    <div id="product-detail" class="detail-container"></div>
+    <!-- JS sẽ render chi tiết sản phẩm vào đây -->
+</div>
+
+
+
+<div id="product-detail"></div>
+<script src="main.js"></script>
+<!-- File xử lý chung: auth, nav, giỏ hàng -->
+<script src="data.js"></script>
+<!-- File chứa dữ liệu sản phẩm -->
+
+<script src="cart.js"></script>
+<!-- File xử lý giỏ hàng -->
+
+<script src="detail.js"></script>
+<!-- File xử lý logic hiển thị chi tiết sản phẩm -->
+
+<footer class="footer">
+<!-- Phần chân trang -->
+
+    <div class="footer-container">
+    <!-- Khung footer -->
+
+        <div class="footer-section">
+            <h3>🍹CHILL AND EAT🍹</h3>
+            <p>Chill & Eat - Nơi bạn có thể thư giãn và thưởng thức những món ăn ngon nhất!</p>
+            <!-- Giới thiệu cửa hàng -->
+        </div>
+
+        <div class="footer-section">
+            <h4>Bản Đồ</h4>
+            <!-- Tiêu đề bản đồ -->
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.831332635167!2d106.73750307481988!3d10.900419889255978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d83c1116183d%3A0xfa754495eeb43247!2zVHLGsOG7nW5nIFRydW5nIEPhuqVwIEPDtG5nIE5naGnhu4dwIELDrG5oIETGsMahbmc!5e0!3m2!1svi!2s!4v1769156833576!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <!-- Nhúng Google Maps -->
+        </div>
+
+        <div class="footer-section">
+            <h4>Hỗ trợ khách hàng</h4>
+            <!-- Thông tin liên hệ -->
+
+            <p>📞 Hotline: 0935-656-603</p>
+            <p>📧 Email: truongtccnbd@gmail.com</p>
+            <p>📍 Địa chỉ: Số 79 DT 743, KCN Sóng Thần, phường Bình Hoà, Thuận An, Bình Dương (đi từ ngã tư 550 Dĩ An hướng về cầu vượt Sóng Thần, cách 400m tay phải)</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

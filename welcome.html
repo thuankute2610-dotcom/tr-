@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍹 Chill & Eat 🥤</title>
+    <link rel="stylesheet" href="style.css"> <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff9f43; /* Màu cam trà đào */
+            --secondary-color: #6d4c41; /* Màu nâu trân châu */
+            --bg-welcome: #fffaf0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-welcome);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(109, 76, 65, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 2px dashed var(--primary-color);
+            position: relative;
+        }
+
+        .icon-header {
+            font-size: 60px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .welcome-card h1 {
+            color: var(--secondary-color);
+            margin: 10px 0;
+            font-size: 28px;
+        }
+
+        .user-name {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .welcome-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-welcome {
+            padding: 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-order {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 159, 67, 0.3);
+        }
+
+        .btn-order:hover {
+            transform: translateY(-3px);
+            background: #f39c12;
+        }
+
+        .btn-menu {
+            background: white;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn-menu:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Hiệu ứng trân châu rơi */
+        .bubble {
+            position: absolute;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: -1;
+            animation: move 5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-card">
+        <span class="icon-header">🧋✨</span>
+        <h1>CHÀO MỪNG BẠN ĐẾN VỚI 🍹 CHILL & EAT</h1>
+        <p>Hôm nay bạn muốn thưởng thức một ly trà sữa full topping hay món ăn vặt gì nào?</p>
+        
+
+        <div class="btn-container">
+            <a href="index.html" class="btn-welcome btn-order">
+                🍟 Đặt món ngay thôi!
+            </a>
+            <a href="cart.html" class="btn-welcome btn-menu">
+                🛒 Xem giỏ hàng (<span id="count">0</span>)
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lấy dữ liệu người dùng từ localStorage tương tự file detail.js
+            const user = JSON.parse(localStorage.getItem("currentUser"));
+            const cart = JSON.parse(localStorage.getItem("gioHang")) || [];
+
+            // Cập nhật số lượng giỏ hàng
+            const totalQty = cart.reduce((total, item) => total + item.soLuong, 0);
+            document.getElementById("count").innerText = totalQty;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+/* Xóa bỏ khoảng trắng mặc định của trình duyệt */
+body, html {
+    margin: 0;              /* Xóa lề ngoài mặc định */
+    padding: 0;             /* Xóa khoảng đệm mặc định */
+    overflow-x: hidden;     /* Ngăn thanh cuộn ngang khi layout bị tràn */
+}
+
+/* Khung chứa nội dung chính của trang chi tiết */
+.container {
+    max-width: 1000px;      /* Chiều rộng tối đa 1000px */
+    margin: 40px auto;      /* Căn giữa + cách trên dưới 40px */
+    padding: 20px;          /* Khoảng đệm bên trong */
+    background: white;      /* Nền trắng */
+    border-radius: 15px;    /* Bo tròn góc */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+    /* Đổ bóng nhẹ tạo cảm giác nổi */
+}
+
+/* Khối chứa hình ảnh và thông tin sản phẩm */
+.detail-container {
+    display: flex;          /* Dùng flexbox */
+    gap: 40px;              /* Khoảng cách giữa các cột */
+    align-items: center;    /* Căn giữa theo chiều dọc */
+}
+
+/* Ảnh sản phẩm */
+.detail-image img {
+    width: 100%;            /* Chiếm toàn bộ chiều ngang khối cha */
+    max-width: 450px;       /* Giới hạn kích thước ảnh */
+    border-radius: 10px;    /* Bo góc ảnh */
+}
+
+/* Nút quay lại */
+.btn-back {
+    text-decoration: none;  /* Bỏ gạch chân */
+    color: #007bff;         /* Màu xanh link */
+    font-weight: bold;      /* Chữ đậm */
+    display: inline-block;  /* Để margin hoạt động đúng */
+    margin-bottom: 20px;    /* Cách nội dung phía dưới */
+}
+
+/* Nút thêm vào giỏ hàng */
+.btn-add {
+    background: #d70018;    /* Nền đỏ */
+    color: white;           /* Chữ trắng */
+    border: none;           /* Bỏ viền */
+    padding: 15px 40px;     /* Đệm trong */
+    border-radius: 8px;     /* Bo góc */
+    font-size: 1.2rem;      /* Cỡ chữ lớn */
+    cursor: pointer;        /* Hiển thị bàn tay khi hover */
+    width: 100%;            /* Chiếm toàn bộ chiều ngang */
+}
+
+/* Mô tả sản phẩm */
+.description {
+    background: #f8f9fa;    /* Nền xám nhạt */
+    padding: 20px;          /* Khoảng đệm */
+    border-radius: 8px;     /* Bo góc */
+    line-height: 1.6;       /* Giãn dòng cho dễ đọc */
+}
+
+/* ================= HOVER ================= */
+
+/* Hiệu ứng khi rê chuột lên nút điều hướng */
+.btn-nav:hover {
+    background-color: #f0f0f0;      /* Đổi màu nền */
+    transform: translateY(-3px);    /* Nút bay lên 3px */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    /* Tăng bóng tạo cảm giác nổi */
+}
+
+/* ================= SỐ LƯỢNG ================= */
+
+/* Khu vực chọn số lượng */
+.quantity-section {
+    margin: 20px 0 10px 0;  /* Trên - dưới */
+    display: flex;          /* Sắp xếp ngang */
+    align-items: center;    /* Căn giữa theo trục dọc */
+    gap: 15px;              /* Khoảng cách giữa các phần tử */
+    font-weight: bold;      /* Chữ đậm */
+}
+
+/* Ô nhập số lượng */
+.input-quantity {
+    width: 70px;            /* Độ rộng cố định */
+    padding: 8px;           /* Khoảng đệm */
+    border: 1px solid #ddd; /* Viền xám nhạt */
+    border-radius: 5px;     /* Bo góc */
+    text-align: center;     /* Canh giữa số */
+}
+
+/* ================= TỔNG TIỀN ================= */
+
+/* Khung hiển thị tổng tiền */
+.total-section {
+    margin-bottom: 25px;       /* Cách dưới */
+    padding: 15px;             /* Đệm trong */
+    background: #fff5f5;       /* Nền hồng nhạt */
+    border-radius: 8px;        /* Bo góc */
+    border-left: 5px solid #d70018;
+    /* Viền đỏ bên trái để nhấn mạnh */
+    font-size: 1.1rem;         /* Cỡ chữ */
+    font-weight: bold;         /* Chữ đậm */
+}
+
+/* Số tiền nổi bật */
+.total-amount {
+    color: #d70018;            /* Màu đỏ */
+    font-size: 1.4rem;         /* Chữ to */
+    margin-left: 10px;         /* Cách chữ bên trái */
+}
+
+/* Giá sản phẩm */
+.detail-price {
+    color: #d70018;            /* Màu đỏ */
+    margin: 10px 0;            /* Cách trên dưới */
+}

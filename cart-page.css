@@ -1,0 +1,146 @@
+/* Xóa bỏ khoảng trắng bao quanh trang web */
+body, html {
+    margin: 0;                     /* Xóa margin mặc định của trình duyệt */
+    padding: 0;                    /* Xóa padding mặc định */
+    overflow-x: hidden;            /* Ngăn xuất hiện thanh cuộn ngang */
+}
+
+/* Container chính của trang giỏ hàng */
+.cart-page-container {
+    max-width: 1100px;             /* Giới hạn chiều rộng nội dung */
+    margin: 50px auto;             /* Căn giữa + cách trên dưới */
+    padding: 30px;                 /* Khoảng cách bên trong */
+    background: white;             /* Nền trắng */
+    border-radius: 12px;           /* Bo tròn góc */
+}
+
+/* Bảng hiển thị sản phẩm */
+table {
+    width: 100%;                   /* Rộng toàn khung */
+    border-collapse: collapse;     /* Gộp đường viền bảng */
+    margin: 30px 0;                /* Cách trên dưới */
+}
+
+/* Tiêu đề cột của bảng */
+th {
+    background: #ff8c00;           /* Nền cam */
+    color: white;                  /* Chữ trắng */
+    padding: 15px;                 /* Khoảng cách trong */
+}
+
+/* Ô dữ liệu trong bảng */
+td {
+    padding: 15px;                 /* Khoảng cách trong */
+    border-bottom: 1px solid #eee; /* Đường kẻ phân cách dòng */
+    text-align: center;            /* Căn giữa nội dung */
+    
+}
+
+/* Khu vực tổng tiền */
+.cart-summary {
+    text-align: right;             /* Căn phải nội dung */
+    border-top: 2px solid #eee;    /* Đường kẻ trên */
+    padding-top: 20px;             /* Cách phía trên */
+}
+
+/* Số tiền tổng cộng */
+#tongTien {
+    color: #d70018;                /* Màu đỏ nổi bật */
+    font-size: 2rem;               /* Cỡ chữ lớn */
+}
+
+/* Nút chính (phiên bản cũ) */
+.btn-primary {
+    background: #d70018;           /* Nền đỏ */
+    color: white;                  /* Chữ trắng */
+    border: none;                  /* Không viền */
+    padding: 15px 30px;            /* Kích thước nút */
+    border-radius: 5px;            /* Bo góc */
+    cursor: pointer;               /* Chuột hình tay */
+    font-weight: bold;             /* Chữ đậm */
+}
+
+/* Nút phụ (quay lại / link phụ) */
+.btn-secondary {
+    color: #666;                   /* Màu xám */
+    text-decoration: none;         /* Bỏ gạch chân */
+    margin-right: 20px;            /* Cách bên phải */
+    font-weight: 600;              /* Chữ hơi đậm */
+}
+
+/* Container chứa các nút bên dưới giỏ hàng */
+.cart-buttons {
+    display: flex;                 /* Sắp xếp ngang bằng Flexbox */
+    justify-content: space-between;/* Đẩy 2 nút ra 2 phía */
+    align-items: center;           /* Căn giữa theo chiều dọc */
+    margin-top: 30px;              /* Cách phần trên */
+    gap: 15px;                     /* Khoảng cách giữa các nút */
+    text-align: center;
+}
+
+/* Nút "Tiếp tục chọn" */
+.btn-continue {
+    display: inline-flex;          /* Flex nội tuyến */
+    align-items: center;           /* Căn giữa icon + chữ */
+    gap: 8px;                      /* Khoảng cách icon - chữ */
+    padding: 12px 25px;            /* Kích thước nút */
+    background-color: transparent; /* Nền trong suốt */
+    color: #007bff;                /* Màu xanh chủ đạo */
+    text-decoration: none;         /* Bỏ gạch chân */
+    font-weight: 600;              /* Chữ hơi đậm */
+    border: 2px solid #007bff;     /* Viền xanh */
+    border-radius: 8px;            /* Bo góc */
+    transition: all 0.3s ease;     /* Hiệu ứng mượt */
+}
+
+/* Icon mũi tên trong nút tiếp tục */
+.btn-continue .icon {
+    font-size: 1.2rem;             /* Kích thước icon */
+    transition: transform 0.3s ease; /* Hiệu ứng dịch chuyển */
+}
+
+/* Hiệu ứng khi di chuột vào nút Tiếp tục */
+.btn-continue:hover {
+    background-color: #007bff;     /* Nền xanh */
+    color: white;                  /* Chữ trắng */
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Đổ bóng xanh */
+}
+
+/* Hiệu ứng icon khi hover */
+.btn-continue:hover .icon {
+    transform: translateX(-5px);   /* Mũi tên nhích sang trái */
+}
+
+/* Nút Xác nhận đơn hàng (phiên bản cập nhật đồng bộ giao diện) */
+.btn-primary {
+    background: linear-gradient(135deg, #d70018 0%, #ff4d4d 100%); /* Gradient đỏ đậm → đỏ nhạt */                                 
+    color: white;                  /* Chữ trắng */
+    border: none;                  /* Không viền */
+    padding: 14px 35px;            /* Kích thước nút */
+    border-radius: 8px;            /* Bo góc */
+    font-weight: bold;             /* Chữ đậm */
+    cursor: pointer;               /* Chuột hình tay */
+    font-size: 1rem;               /* Cỡ chữ */
+    box-shadow: 0 4px 15px rgba(215, 0, 24, 0.3); /* Đổ bóng đỏ */
+    transition: transform 0.2s;    /* Hiệu ứng scale */
+}
+
+/* Hover nút xác nhận */
+.btn-primary:hover {
+    transform: scale(1.03);        /* Phóng to nhẹ */
+    box-shadow: 0 6px 20px rgba(215, 0, 24, 0.4); /* Bóng đậm hơn */
+}
+
+/* Hiệu ứng khi di chuột vào nút điều hướng */
+.btn-nav:hover {
+    background-color: #f0f0f0;     /* Nền xám nhạt */
+    transform: translateY(-3px);   /* Nút bay nhẹ lên */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Đổ bóng */
+}
+.input-quantity {
+    width: 70px;                    /* Độ rộng cố định */
+    padding: 8px;                   /* Khoảng đệm */
+    border: 1px solid #ddd;         /* Viền xám nhạt */
+    border-radius: 5px;             /* Bo góc */
+    text-align: center;             /* Canh giữa số */
+}
