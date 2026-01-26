@@ -118,7 +118,7 @@
         
 
         <div class="btn-container">
-            <a href="index.html" class="btn-welcome btn-order">
+            <a href="index.html" class="btn-welcome btn-order" onclick="startApp()">
                 🍟 Đặt món ngay thôi!
             </a>
             <a href="cart.html" class="btn-welcome btn-menu">
@@ -138,5 +138,13 @@
             document.getElementById("count").innerText = totalQty;
         });
     </script>
+    <script>
+function startApp() {
+    // Lưu trạng thái đã xem vào bộ nhớ phiên (tắt trình duyệt sẽ xóa)
+    sessionStorage.setItem('visitedWelcome', 'true');
+    // Chuyển về trang chủ
+    window.location.href = "index.html";
+}
+</script>
 </body>
 </html>
