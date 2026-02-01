@@ -20,7 +20,7 @@ body, html {
 .detail-container {
     display: flex;          /* Dùng flexbox */
     gap: 40px;              /* Khoảng cách giữa các cột */
-    align-items: center;    /* Căn giữa theo chiều dọc */
+ 
 }
 
 /* Ảnh sản phẩm */
@@ -32,16 +32,58 @@ body, html {
 
 /* Nút quay lại */
 .btn-back {
-    text-decoration: none;  /* Bỏ gạch chân */
-    color: #007bff;         /* Màu xanh link */
-    font-weight: bold;      /* Chữ đậm */
-    display: inline-block;  /* Để margin hoạt động đúng */
-    margin-bottom: 20px;    /* Cách nội dung phía dưới */
+    text-decoration: none;          /* Bỏ gạch chân */
+    color: #495057;                 /* Màu xám đậm */
+    font-weight: 600;               /* Chữ đậm vừa */
+    display: inline-flex;           /* Flexbox để căn icon và text */
+    align-items: center;            /* Căn giữa theo chiều dọc */
+    gap: 8px;                       /* Khoảng cách giữa icon và text */
+    padding: 12px 20px;             /* Khoảng đệm trong */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    /* Gradient nền xám nhạt */
+    border: 2px solid #dee2e6;      /* Viền xám nhạt */
+    border-radius: 25px;            /* Bo tròn góc */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* Đổ bóng nhẹ */
+    transition: all 0.3s ease;      /* Hiệu ứng chuyển đổi mượt mà */
+    margin-bottom: 25px;            /* Cách nội dung phía dưới */
+    font-size: 1rem;                /* Cỡ chữ */
+}
+
+/* Hover effect cho nút quay lại */
+.btn-back:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    /* Gradient xanh khi hover */
+    color: white;                   /* Chữ trắng */
+    border-color: #007bff;          /* Viền xanh */
+    transform: translateY(-2px);    /* Nút bay lên 2px */
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+    /* Tăng bóng khi hover */
+}
+
+/* Active effect khi click */
+.btn-back:active {
+    transform: translateY(0);       /* Quay về vị trí ban đầu */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* Giảm bóng khi click */
 }
 
 /* Nút thêm vào giỏ hàng */
 .btn-add {
     background: #d70018;    /* Nền đỏ */
+    color: white;           /* Chữ trắng */
+    border: none;           /* Bỏ viền */
+    padding: 15px 40px;     /* Đệm trong */
+    border-radius: 8px;     /* Bo góc */
+    font-size: 1.2rem;      /* Cỡ chữ lớn */
+    cursor: pointer;        /* Hiển thị bàn tay khi hover */
+    width: 100%;            /* Chiếm toàn bộ chiều ngang */
+    margin-bottom: 10px;    /* Khoảng cách dưới */
+}
+
+/* Nút thanh toán ngay */
+.btn-pay-now {
+    background: #28a745;    /* Nền xanh lá */
     color: white;           /* Chữ trắng */
     border: none;           /* Bỏ viền */
     padding: 15px 40px;     /* Đệm trong */
@@ -89,6 +131,67 @@ body, html {
     text-align: center;     /* Canh giữa số */
 }
 
+/* ================= ĐỘ NGỌT ================= */
+
+/* Khung chọn độ ngọt */
+.sugar-section {
+    margin: 20px 0 15px 0;  /* Khoảng cách trên dưới */
+    padding: 15px;            /* Khoảng cách trong */
+    background: #f8f9fa;      /* Nền xám nhạt */
+    border-radius: 8px;       /* Bo góc */
+    border: 1px solid #e9ecef; /* Viền nhạt */
+}
+
+/* Tiêu đề độ ngọt */
+.sugar-section label {
+    display: block;           /* Hiển thị dạng block */
+    font-weight: bold;        /* Chữ đậm */
+    margin-bottom: 10px;      /* Khoảng cách dưới */
+    color: #333;              /* Màu chữ */
+}
+
+/* Container chứa các tùy chọn đường */
+.sugar-options {
+    display: flex;            /* Sắp xếp ngang */
+    gap: 15px;                /* Khoảng cách giữa các option */
+    flex-wrap: wrap;          /* Cho phép xuống dòng nếu cần */
+}
+
+/* Mỗi tùy chọn đường */
+.sugar-option {
+    display: flex;            /* Flexbox để căn giữa */
+    align-items: center;      /* Căn giữa theo chiều dọc */
+    gap: 8px;                 /* Khoảng cách giữa radio và text */
+    cursor: pointer;          /* Con trỏ dạng tay */
+    padding: 8px 12px;        /* Khoảng cách trong */
+    border-radius: 6px;       /* Bo góc nhẹ */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+    border: 2px solid transparent; /* Viền trong suốt mặc định */
+}
+
+/* Hover effect cho sugar option */
+.sugar-option:hover {
+    background-color: #e9ecef; /* Nền xám nhạt khi hover */
+}
+
+/* Khi sugar option được chọn */
+.sugar-option input[type="radio"]:checked + span {
+    font-weight: bold;        /* Chữ đậm */
+    color: #d70018;           /* Màu đỏ */
+}
+
+/* Ẩn radio button gốc */
+.sugar-option input[type="radio"] {
+    display: none;            /* Ẩn radio button gốc */
+}
+
+/* Style cho text của sugar option */
+.sugar-option span {
+    font-size: 0.95rem;       /* Cỡ chữ */
+    color: #555;              /* Màu chữ */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
 /* ================= TỔNG TIỀN ================= */
 
 /* Khung hiển thị tổng tiền */
@@ -114,4 +217,157 @@ body, html {
 .detail-price {
     color: #d70018;            /* Màu đỏ */
     margin: 10px 0;            /* Cách trên dưới */
+}
+
+/* Mô tả sản phẩm */
+.product-description {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.product-description h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.product-description p {
+    margin: 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Thành phần sản phẩm */
+.product-ingredients {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff3cd;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+}
+
+.product-ingredients h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.product-ingredients p {
+    margin: 0;
+    line-height: 1.6;
+    color: #555;
+    font-style: italic;
+}
+
+/* Topping section */
+.topping-section {
+    margin: 20px 0;
+}
+
+.topping-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.topping-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.topping-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.topping-item:hover {
+    border-color: #007bff;
+    background: #f0f8ff;
+}
+
+.topping-item input[type="checkbox"] {
+    display: none;
+}
+
+.topping-item label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+}
+
+.topping-item input[type="checkbox"]:checked + label {
+    background: #e3f2fd;
+    border-radius: 6px;
+}
+
+.topping-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.topping-info {
+    flex: 1;
+}
+
+.topping-name {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.topping-price {
+    display: block;
+    color: #d70018;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Note section */
+.note-section {
+    margin: 20px 0;
+}
+
+.note-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.note-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+.note-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.note-input::placeholder {
+    color: #999;
+    font-style: italic;
 }

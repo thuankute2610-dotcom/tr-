@@ -5,7 +5,26 @@ const container = document.getElementById("cacLoaiHoa");
 function formatVND(tien) { 
     return Number(tien).toLocaleString("vi-VN", { style: "currency", currency: "VND" }); 
 }
-
+// Chỉnh sửa trong hàm render sản phẩm (ví dụ renderDetail)
+function renderProductDetail(item) {
+    return `
+        <div class="product-detail">
+            <img src="${item.image}" alt="${item.name}">
+            <h2>${item.name}</h2>
+            <p class="price">${item.price.toLocaleString()} VNĐ</p>
+            
+            <div class="action-buttons">
+                <button class="btn-add-cart" onclick="addToCart(${item.id})">
+                    🛒 Thêm vào giỏ
+                </button>
+                
+                <button class="btn-buy-now" onclick="buyNow(${item.id})">
+                    💳 Thanh toán ngay
+                </button>
+            </div>
+        </div>
+    `;
+}
 // Hàm chính để hiển thị danh sách điện thoại lên màn hình
 function hienThiHoa() {
     // Truy xuất lại vùng chứa để đảm bảo phần tử này tồn tại trên trang hiện tại
@@ -48,3 +67,4 @@ function hienThiHoa() {
         container.appendChild(card);
     });
 }
+

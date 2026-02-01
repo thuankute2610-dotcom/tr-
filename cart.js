@@ -30,6 +30,9 @@ function themVaoGio(id) {
     alert("Đã thêm vào giỏ hàng!"); // Thông báo cho khách hàng biết
 }
 
+// Biến lưu trữ mã giảm giá đã áp dụng
+let appliedDiscount = 0;
+
 // Hàm vẽ giao diện danh sách các món đồ đã chọn vào trang cart.html
 function hienThiGioHang() {
     const body = document.getElementById("gioHangBody"); // Tìm bảng chứa giỏ hàng
@@ -52,6 +55,9 @@ function hienThiGioHang() {
     });
     // Hiển thị tổng số tiền cuối cùng xuống dưới bảng
     document.getElementById("tongTien").innerText = "Tổng tiền: " + formatVND(tong);
+
+    // Cập nhật tổng thanh toán sau giảm giá
+    updateFinalTotal(tong);
 }
 
 // Hàm xử lý khi người dùng thay đổi số lượng trong bảng giỏ hàng
@@ -70,7 +76,33 @@ function xoaItem(id) {
     hienThiGioHang(); // Vẽ lại giao diện
     capNhatBadgeGioHang(); // Cập nhật lại con số trên icon giỏ hàng
 }
+// Hàm xóa toàn bộ giỏ hàng
+function clearFullCart() {
+    // 1. Xác nhận với người dùng trước khi xóa
+    const confirmDelete = confirm("Bạn có chắc chắn muốn xóa toàn bộ sản phẩm trong giỏ hàng không?");
 
+    if (confirmDelete) {
+        // 2. Xóa dữ liệu giỏ hàng trong localStorage
+        localStorage.removeItem('gioHang');
+
+        // 3. Cập nhật lại biến giỏ hàng toàn cục
+        gioHang = [];
+
+        // 4. Cập nhật lại số lượng hiển thị trên icon giỏ hàng
+        capNhatBadgeGioHang();
+
+        // 5. Vẽ lại giao diện giỏ hàng (sẽ hiển thị bảng trống)
+        hienThiGioHang();
+
+        // 6. Cập nhật tổng tiền về 0
+        const tongTienElement = document.getElementById("tongTien");
+        if (tongTienElement) {
+            tongTienElement.textContent = "Tổng tiền: 0 ₫";
+        }
+
+        alert("Đã xóa toàn bộ giỏ hàng!");
+    }
+}
 // Hàm xử lý thanh toán và tạo mã QR
 
 
@@ -130,6 +162,34 @@ function handleLogout() {
 // Chạy hàm kiểm tra ngay khi trang chi tiết vừa nạp xong
 document.addEventListener("DOMContentLoaded", kiemTraDangNhapChiTiet);
 
+// Hàm kiểm tra trạng thái đăng nhập trên trang giỏ hàng
+function kiemTraDangNhapGioHang() {
+    // Lấy dữ liệu người dùng từ LocalStorage
+    const nguoiDungHienTai = JSON.parse(localStorage.getItem("currentUser"));
+    const authButtons = document.getElementById('auth-buttons');
+
+    if (nguoiDungHienTai && authButtons) {
+        // Nếu đã đăng nhập: Ẩn nút đăng nhập/đăng ký, hiện nút đăng xuất
+        const loginBtn = authButtons.querySelector('.login');
+        const registerBtn = authButtons.querySelector('.register');
+        const logoutBtn = authButtons.querySelector('.logout');
+
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (registerBtn) registerBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+    }
+    // Luôn cập nhật số lượng giỏ hàng nếu có hàm này
+    if (typeof capNhatBadgeGioHang === "function") {
+        capNhatBadgeGioHang();
+    }
+}
+
+// Chạy hàm kiểm tra trạng thái đăng nhập khi trang giỏ hàng tải xong
+document.addEventListener("DOMContentLoaded", function() {
+    kiemTraDangNhapGioHang();
+    // Các hàm khác có thể thêm vào đây
+});
+
 
 
 function thanhToan() {
@@ -154,21 +214,63 @@ function thanhToan() {
     // 3. Nếu đã đăng nhập và có hàng, tiến hành xử lý thanh toán (Ví dụ: hiện mã QR)
     alert("Xác nhận đơn hàng thành công! Đang chuyển đến trang thanh toán...");
     
-    // Tính toán lại tổng số tiền cuối cùng
+    // Tính toán lại tổng số tiền cuối cùng sau giảm giá
     const tongTien = gioHang.reduce((s, i) => s + i.soLuong * i.price, 0);
-    
+    const finalAmount = Math.max(0, tongTien - appliedDiscount);
+
     // THÔNG TIN TÀI KHOẢN NGÂN HÀNG NHẬN TIỀN
     const BANK_ID = "vcb"; // Vietcombank
     const ACCOUNT_NO = "9975348611"; // Số tài khoản của bạn
     const ACCOUNT_NAME = "NGUYEN VAN THUAN"; // Tên chủ tài khoản
 
     // Tạo đường dẫn API VietQR để tự động tạo ảnh QR kèm số tiền và nội dung chuyển khoản
-    const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.jpg?amount=${tongTien}&addInfo=${encodeURIComponent('Thanh toan don hang ')}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
+    const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.jpg?amount=${finalAmount}&addInfo=${encodeURIComponent('Thanh toan don hang ')}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
 
     // Gán link ảnh vừa tạo vào thẻ img trong Modal thanh toán
     document.getElementById("qrImage").src = qrUrl;
     // Hiển thị số tiền cần trả lên màn hình thanh toán
-    document.getElementById("qrAmount").innerText = "Số tiền: " + formatVND(tongTien);
+    document.getElementById("qrAmount").innerText = "Số tiền: " + formatVND(finalAmount);
     // Mở cửa sổ Modal hiện mã QR lên
     document.getElementById("qrModal").style.display = "block";
+}
+
+// Hàm áp dụng mã giảm giá
+function applyDiscount() {
+    const code = document.getElementById('discount-code').value.trim().toUpperCase();
+    const messageElement = document.getElementById('discount-message');
+
+    if (code === 'CUOINAM20') {
+        // Tính tổng tiền hiện tại
+        const tongTien = gioHang.reduce((s, i) => s + i.soLuong * i.price, 0);
+        // Giảm giá 20%
+        appliedDiscount = Math.round(tongTien * 0.2);
+        messageElement.textContent = 'Mã giảm giá áp dụng thành công!';
+        messageElement.style.color = 'green';
+        // Cập nhật hiển thị
+        updateFinalTotal(tongTien);
+    } else {
+        appliedDiscount = 0;
+        messageElement.textContent = 'Mã giảm giá không hợp lệ!';
+        messageElement.style.color = 'red';
+        // Ẩn các phần giảm giá
+        document.getElementById('discount-amount').style.display = 'none';
+        document.getElementById('final-total').style.display = 'none';
+    }
+}
+
+// Hàm cập nhật tổng thanh toán sau giảm giá
+function updateFinalTotal(tongTien) {
+    const discountAmountElement = document.getElementById('discount-amount');
+    const finalTotalElement = document.getElementById('final-total');
+
+    if (appliedDiscount > 0) {
+        const finalAmount = Math.max(0, tongTien - appliedDiscount);
+        discountAmountElement.textContent = `Giảm giá: -${formatVND(appliedDiscount)}`;
+        discountAmountElement.style.display = 'block';
+        finalTotalElement.textContent = `Tổng thanh toán: ${formatVND(finalAmount)}`;
+        finalTotalElement.style.display = 'block';
+    } else {
+        discountAmountElement.style.display = 'none';
+        finalTotalElement.style.display = 'none';
+    }
 }

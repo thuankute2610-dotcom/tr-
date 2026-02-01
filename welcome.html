@@ -3,148 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍹 Chill & Eat 🥤</title>
-    <link rel="stylesheet" href="style.css"> <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #ff9f43; /* Màu cam trà đào */
-            --secondary-color: #6d4c41; /* Màu nâu trân châu */
-            --bg-welcome: #fffaf0;
+    <title>Chào mừng tới Chill & Eat</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        /* CSS bổ sung dành riêng cho trang Welcome */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: var(--bg-welcome);
-            margin: 0;
+        .welcome-bg {
+            background-image: linear-gradient(rgba(255, 251, 251, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://th.bing.com/th/id/R.0b501ec8b920e99ce72807eeac80224a?rik=O5MEeiOxf1xZlw&riu=http%3a%2f%2fgiadinh.mediacdn.vn%2fk%3a2016%2fphoto-0-1473001754574%2fnhungmonanvatngonvahapdannhathanoi.jpg&ehk=mHO29gJTfJKp9ERTTVrDSXBI6c8u13Ya3APluSfPtqo%3d&risl=&pid=ImgRaw&r=0'); /* Thay link ảnh món ăn của bạn ở đây */
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-        }
-
-        .welcome-card {
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(109, 76, 65, 0.1);
             text-align: center;
-            max-width: 450px;
-            width: 90%;
-            border: 2px dashed var(--primary-color);
-            position: relative;
+            color: white;
         }
 
-        .icon-header {
-            font-size: 60px;
-            margin-bottom: 15px;
-            display: block;
+        .welcome-content h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInDown 1.5s ease;
         }
 
-        .welcome-card h1 {
-            color: var(--secondary-color);
-            margin: 10px 0;
-            font-size: 28px;
+        .welcome-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-style: italic;
+            animation: fadeInUp 2s ease;
         }
 
-        .user-name {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        .welcome-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .btn-welcome {
-            padding: 15px;
+        .btn-start {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            transition: 0.3s transform, 0.3s background-color;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
         }
 
-        .btn-order {
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 159, 67, 0.3);
+        .btn-start:hover {
+            background-color: #ee5253;
+            transform: scale(1.1);
         }
 
-        .btn-order:hover {
-            transform: translateY(-3px);
-            background: #f39c12;
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-menu {
-            background: white;
-            color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-        }
-
-        .btn-menu:hover {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        /* Hiệu ứng trân châu rơi */
-        .bubble {
-            position: absolute;
-            background: var(--secondary-color);
-            border-radius: 50%;
-            opacity: 0.2;
-            z-index: -1;
-            animation: move 5s infinite ease-in-out;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="welcome-card">
-        <span class="icon-header">🧋✨</span>
-        <h1>CHÀO MỪNG BẠN ĐẾN VỚI 🍹 CHILL & EAT</h1>
-        <p>Hôm nay bạn muốn thưởng thức một ly trà sữa full topping hay món ăn vặt gì nào?</p>
-        
-
-        <div class="btn-container">
-            <a href="index.html" class="btn-welcome btn-order" onclick="startApp()">
-                🍟 Đặt món ngay thôi!
-            </a>
-            <a href="cart.html" class="btn-welcome btn-menu">
-                🛒 Xem giỏ hàng (<span id="count">0</span>)
-            </a>
+    <div class="welcome-bg">
+        <div class="welcome-content">
+            <h1>🍹 CHILL & EAT</h1>
+            <p>Nơi vị giác thăng hoa, tâm hồn thư thái</p>
+            <a href="index.html" class="btn-start">KHÁM PHÁ THỰC ĐƠN</a>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Lấy dữ liệu người dùng từ localStorage tương tự file detail.js
-            const user = JSON.parse(localStorage.getItem("currentUser"));
-            const cart = JSON.parse(localStorage.getItem("gioHang")) || [];
-
-            // Cập nhật số lượng giỏ hàng
-            const totalQty = cart.reduce((total, item) => total + item.soLuong, 0);
-            document.getElementById("count").innerText = totalQty;
-        });
-    </script>
-    <script>
-function startApp() {
-    // Lưu trạng thái đã xem vào bộ nhớ phiên (tắt trình duyệt sẽ xóa)
-    sessionStorage.setItem('visitedWelcome', 'true');
-    // Chuyển về trang chủ
-    window.location.href = "index.html";
-}
-</script>
 </body>
 </html>

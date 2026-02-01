@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đội Ngũ Chill & Eat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <div class="nav-container">
+    <div class="nav-left">
+        <a href="index.html" class="btn-home">🏠 <span>Trang chủ</span></a>
+    </div>
+    <div class="nav-right" id="auth-buttons">
+        <span id="user-greeting" style="display:none;">Chào, <span id="username"></span></span>
+        <!-- Chào mừng người dùng đã đăng nhập -->
+
+        <button class="btn-auth login" onclick="openAuth('login')">Đăng nhập</button>
+        <button class="btn-auth register" onclick="openAuth('register')">Đăng ký</button>
+        <button class="btn-auth logout" onclick="handleLogout()" style="display:none;">Thoát</button>
+        <a href="cart.html" class="btn-nav btn-cart">🛒 Giỏ hàng <span id="cart-count">0</span></a>
+    </div>
+</div>
+
+<div id="auth-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('auth-modal').style.display='none'">&times;</span>
+        <div id="login-form">
+            <h2>Đăng nhập</h2>
+            <input type="email" id="login-email" placeholder="Email" autocomplete="off">
+            <input type="password" id="login-pass" placeholder="Mật khẩu" autocomplete="new-password">
+            <button onclick="handleLogin()" class="btn-primary w-100">ĐĂNG NHẬP</button>
+        </div>
+        <div id="register-form" style="display:none;">
+            <h2>Đăng ký</h2>
+            <input type="text" id="reg-name" placeholder="Họ tên" autocomplete="off">
+            <input type="email" id="reg-email" placeholder="Email" autocomplete="off">
+            <input type="password" id="reg-pass" placeholder="Mật khẩu" autocomplete="new-password">
+            <button onclick="handleRegister()" class="btn-primary w-100">ĐĂNG KÝ</button>
+        </div>
+    </div>
+</div>
+
+<section class="team-section">
+    <div class="container">
+        <h2 class="team-title">Đội Ngũ Chill & Eat</h2>
+        <p class="team-subtitle">Gặp gỡ những người làm nên hương vị tuyệt vời</p>
+
+        <div class="team-container">
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="./btnhom-anh/thuan.jpg" alt="Nguyễn Văn Thuận">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#" class="social-link">📘</a>
+                            <a href="#" class="social-link">📷</a>
+                            <a href="#" class="social-link">🐦</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>Nguyễn Văn Thuận</h3>
+                    <p class="member-role">Người Sáng Lập & CEO</p>
+                    <p class="member-desc">Với tầm nhìn chiến lược và đam mê đồ uống, anh Thuận là người đặt nền móng cho thương hiệu Chill & Eat, mang đến trải nghiệm ẩm thực độc đáo.</p>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="./btnhom-anh/thuy.jpg" alt="Trương Phạm Phương Thùy">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#" class="social-link">📘</a>
+                            <a href="#" class="social-link">📷</a>
+                            <a href="#" class="social-link">🐦</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>Trương Phạm Phương Thùy</h3>
+                    <p class="member-role">Chuyên Viên Marketing</p>
+                    <p class="member-desc">Chị Thùy là người tạo nên hình ảnh thương hiệu Chill & Eat với những chiến dịch marketing sáng tạo, kết nối thương hiệu với khách hàng.</p>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="./btnhom-anh/na.jpg" alt="Võ Lê Na">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#" class="social-link">📘</a>
+                            <a href="#" class="social-link">📷</a>
+                            <a href="#" class="social-link">🐦</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>Võ Lê Na</h3>
+                    <p class="member-role">Quản Lý Sản Phẩm</p>
+                    <p class="member-desc">Chị Na là chuyên gia về phát triển sản phẩm với sự sáng tạo vô tận, luôn nghiên cứu và tạo ra những công thức đồ uống mới lạ và hấp dẫn.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>🍹CHILL AND EAT🍹</h3>
+            <p>Chill & Eat - Nơi bạn có thể thư giãn và thưởng thức những món ăn ngon nhất!</p>
+        </div>
+        <div class="footer-section">
+            <h4>Bản Đồ</h4>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d3917.831332635167!2d106.73750307481988!3d10.900419889255978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d83c1116183d%3A0xfa754495eeb43247!2zVHLGsOG7nW5nIFRydW5nIEPhuqVwIEPDtG5nIE5naGnhu4dwIELDrG5oIETGsMahbmc!5e0!3m2!1svi!2s!4v1769156833576!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="footer-section">
+            <h4>Hỗ trợ khách hàng</h4>
+            <p>📞 Hotline: 0935-656-603</p>
+            <p>📧 Email: truongtccnbd@gmail.com</p>
+            <p>📍 Địa chỉ: Số 79 DT 743, KCN Sóng Thần, phường Bình Hoà, Thuận An, Bình Dương (đi từ ngã tư 550 Dĩ An hướng về cầu vượt Sóng Thần, cách 400m tay phải)</p>
+        </div>
+    </div>
+</footer>
+
+<script src="main.js"></script>
+<script src="data.js"></script>
+<script src="cart.js"></script>
+
+</body>
+</html>

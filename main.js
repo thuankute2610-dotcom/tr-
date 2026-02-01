@@ -41,6 +41,11 @@ function handleRegister() {
     // Kiểm tra xem người dùng có để trống ô nào không
     if (!name || !email || !pass) return alert("Vui lòng nhập đủ thông tin!");
 
+    // Kiểm tra email phải có định dạng @gmail.com
+    if (!email.endsWith('@gmail.com')) {
+        return alert("Email phải có định dạng @gmail.com!");
+    }
+
     // Tạo một đối tượng chứa thông tin người dùng
     const user = { name, email, pass };
     // Lưu thông tin vào LocalStorage với khóa là "user_email" để không bị trùng lặp
@@ -69,18 +74,105 @@ function handleLogin() {
             alert("Sai mật khẩu!");
         }
     } else {
-        alert("Tài khoản không tồn tại!");
+        // Nếu tài khoản không tồn tại, tự động chuyển sang form đăng ký
+        alert("Tài khoản không tồn tại! Chuyển sang đăng ký.");
+        openAuth('register');
+        // Điền sẵn email vào form đăng ký để tiện lợi
+        setTimeout(() => {
+            document.getElementById('reg-email').value = email;
+        }, 100);
+    }
+}
+
+// Hàm định dạng số thành tiền tệ Việt Nam (ví dụ: 1000000 -> 1.000.000 ₫)
+function formatVND(tien) {
+    return Number(tien).toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+
+// --- TÌM KIẾM SẢN PHẨM ---
+
+// Hàm tìm kiếm sản phẩm
+function searchProducts() {
+    const searchInput = document.getElementById('search-input');
+    const query = searchInput.value.trim().toLowerCase(); // Lấy từ khóa tìm kiếm và chuyển về chữ thường
+
+    if (!query) {
+        // Nếu không có từ khóa, hiển thị tất cả sản phẩm
+        if (typeof hienThiHoa === "function") {
+            hienThiHoa();
+        }
+        return;
+    }
+
+    // Lọc sản phẩm dựa trên từ khóa (tìm trong tên sản phẩm)
+    const filteredProducts = danhSachHoa.filter(product =>
+        product.name.toLowerCase().includes(query)
+    );
+
+    // Hiển thị kết quả tìm kiếm
+    const container = document.getElementById('cacLoaiHoa');
+    if (container) {
+        if (filteredProducts.length === 0) {
+            // Nếu không tìm thấy sản phẩm nào
+            container.innerHTML = `
+                <div style="text-align: center; padding: 50px; color: #666;">
+                    <h2>Không tìm thấy sản phẩm nào</h2>
+                    <p>Vui lòng thử từ khóa khác</p>
+                    <button onclick="document.getElementById('search-input').value=''; searchProducts();" style="padding: 10px 20px; background: #ff8c00; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Hiển thị tất cả sản phẩm
+                    </button>
+                </div>
+            `;
+        } else {
+            // Hiển thị danh sách sản phẩm tìm được
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="flower-card">
+                    <img src="${product.img}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="product-price">${formatVND(product.price)}</p>
+
+                    <div class="product-info">
+                        <p class="desc"><strong>Mô tả:</strong> ${product.description}</p>
+                        <p class="ingr"><strong>Thành phần:</strong> <em>${product.ingredients}</em></p>
+                    </div>
+
+                    <input type="number" value="1" min="1" class="input-quantity">
+                    <button onclick="window.location.href='detail.html?id=${product.id}'">Xem chi tiết</button>
+                </div>
+            `).join('');
+        }
     }
 }
 
 // --- ĐĂNG XUẤT ---
 
-function handleLogout() {
-    localStorage.removeItem("currentUser"); // Xóa bỏ trạng thái đăng nhập
-    location.reload(); // Tải lại trang để quay về giao diện ban đầu
-}
+// --- CẬP NHẬT TRONG main.js ---
 
-// --- KIỂM TRA TRẠNG THÁI KHI TRANG TẢI XONG (DOM) ---
+// 1. Sửa lại hàm handleLogout để thêm xác nhận
+// --- ĐĂNG XUẤT ---
+function handleLogout() {
+    // Hiển thị hộp thoại xác nhận trước khi thực hiện đăng xuất
+    const logOutConfirm = confirm("Bạn có chắc chắn muốn đăng xuất không?");
+
+    if (logOutConfirm) {
+        localStorage.removeItem("currentUser"); // Xóa bỏ trạng thái đăng nhập
+        location.reload(); // Tải lại trang để quay về giao diện ban đầu
+    }
+}
+// 2. Đảm bảo nút trong giỏ hàng gọi đúng hàm này
+document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const authButtons = document.getElementById('auth-buttons');
+
+    if (user && authButtons) {
+        authButtons.innerHTML = `
+            <span id="user-greeting">Chào, ${user.name}</span>
+            <button class="btn-auth login" onclick="handleLogout()">Đăng xuất</button>
+            <a href="cart.html" class="btn-nav btn-cart">🛒 Giỏ hàng <span id="cart-count">0</span></a>
+        `;
+    }
+    // ... các code khác
+});
 
 
 
@@ -93,11 +185,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Kiểm tra xem người dùng đã đăng nhập hay chưa
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const authButtons = document.getElementById('auth-buttons'); // Vùng chứa nút Đăng nhập/Đăng ký
-    
+
     if (user && authButtons) {
         // Nếu đã đăng nhập, thay đổi nút Đăng nhập/Đăng ký thành lời chào và nút Đăng xuất
         authButtons.innerHTML = `
-            <span style="color:white; font-weight:bold; margin-right:10px;">Chào, ${user.name}</span>
+            <span id="user-greeting">Chào, ${user.name}</span>
             <button class="btn-auth login" onclick="handleLogout()">Đăng xuất</button>
             <a href="cart.html" class="btn-nav btn-cart">🛒 Giỏ hàng <span id="cart-count">0</span></a>
         `;
@@ -106,5 +198,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Cập nhật con số trên giỏ hàng dựa theo dữ liệu hiện có
     if (typeof capNhatBadgeGioHang === "function") {
         capNhatBadgeGioHang();
+    }
+
+    // 4. Thêm event listener cho ô tìm kiếm
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            searchProducts();
+        });
     }
 });

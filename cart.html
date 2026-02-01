@@ -37,22 +37,30 @@
     </div>
     
     <div class="nav-right" id="auth-buttons">
-    <!-- Bên phải nav: đăng nhập, đăng ký, giỏ hàng -->
+    <!-- Phần bên phải nav: chào người dùng, đăng nhập, đăng ký, giỏ hàng -->
+
+        <span id="user-greeting" style="display:none;">Chào, <span id="username"></span></span>
+        <!-- Chào mừng người dùng đã đăng nhập -->
 
         <button class="btn-auth login" onclick="openAuth('login')">
             Đăng nhập
         </button>
-        <!-- Mở popup đăng nhập -->
+        <!-- Nút mở form đăng nhập -->
 
         <button class="btn-auth register" onclick="openAuth('register')">
             Đăng ký
         </button>
-        <!-- Mở popup đăng ký -->
-        
+        <!-- Nút mở form đăng ký -->
+
+        <button class="btn-auth logout" onclick="handleLogout()" style="display:none;">
+            Thoát
+        </button>
+        <!-- Nút đăng xuất (ẩn mặc định) -->
+
         <a href="cart.html" class="btn-nav btn-cart">
             🛒 Giỏ hàng <span id="cart-count">0</span>
         </a>
-        <!-- Link giỏ hàng + số lượng sản phẩm -->
+        <!-- Link tới trang giỏ hàng + số lượng sản phẩm -->
     </div>
 </div>
 
@@ -117,6 +125,7 @@
 
         <h1>🛒 giỏ hàng</h1>
         <!-- Tiêu đề -->
+         
 
         <table>
         <!-- Bảng hiển thị sản phẩm -->
@@ -139,15 +148,31 @@
         <div class="cart-summary">
         <!-- Khu vực tổng tiền + nút thao tác -->
 
+            <div class="discount-section" style="margin-bottom: 20px;">
+                <label for="discount-code" style="display: block; margin-bottom: 5px; font-weight: bold;">Mã giảm giá:</label>
+                <input type="text" id="discount-code" placeholder="Nhập mã giảm giá" style="padding: 8px; width: 200px; border: 1px solid #ccc; border-radius: 4px;">
+                <button onclick="applyDiscount()" style="padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px;">Áp dụng</button>
+
+        <span id="discount-message" style="margin-left: 10px; color: red;"></span>
+            </div>
+
             <h2 id="tongTien">Tổng tiền: 0 ₫</h2>
             <!-- Tổng tiền đơn hàng -->
+            <p id="discount-amount" style="color: green; font-weight: bold; display: none;">Giảm giá: -20,000 ₫</p>
+            <h2 id="final-total" style="color: #d70018; display: none;">Tổng thanh toán: 0 ₫</h2>
 
             <div class="cart-buttons">
             <!-- Nhóm nút -->
+             <div class="cart-actions" style="margin: 10px 0; text-align: right;">
+    <button onclick="clearFullCart()" class="btn-delete-all" style="background-color: #ff4d4d; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px;">
+        🗑️ Xóa tất cả giỏ hàng
+    </button>
+</div>
 
                 <a href="index.html" class="btn-continue">
                     <span class="icon">←</span> Tiếp tục chọn mua
                 </a>
+                
                 <!-- Quay lại trang sản phẩm -->
     
                 <button id="btnThanhToan"

@@ -39,7 +39,10 @@
     </div>
     
     <div class="nav-right" id="auth-buttons">
-    <!-- Phần bên phải của nav: đăng nhập, đăng ký, giỏ hàng -->
+    <!-- Phần bên phải nav: chào người dùng, đăng nhập, đăng ký, giỏ hàng -->
+
+        <span id="user-greeting" style="display:none;">Chào, <span id="username"></span></span>
+        <!-- Chào mừng người dùng đã đăng nhập -->
 
         <button class="btn-auth login" onclick="openAuth('login')">
             Đăng nhập
@@ -50,13 +53,16 @@
             Đăng ký
         </button>
         <!-- Nút mở form đăng ký -->
-        
-        <a href="cart.html" class="btn-nav btn-cart">
-        <!-- Link tới trang giỏ hàng -->
 
+        <button class="btn-auth logout" onclick="handleLogout()" style="display:none;">
+            Thoát
+        </button>
+        <!-- Nút đăng xuất (ẩn mặc định) -->
+
+        <a href="cart.html" class="btn-nav btn-cart">
             🛒 Giỏ hàng <span id="cart-count">0</span>
-            <!-- Hiển thị số lượng sản phẩm trong giỏ -->
         </a>
+        <!-- Link tới trang giỏ hàng + số lượng sản phẩm -->
     </div>
 </div>
 
@@ -136,6 +142,54 @@
 
 
 <div id="product-detail"></div>
+
+<div id="qrModal" class="modal"
+     style="display:none; position:fixed; z-index:1000;
+            left:0; top:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.8);">
+<!-- Popup thanh toán QR -->
+
+    <div style="background:white; margin:10% auto; padding:20px;
+                width:250px; text-align:center;
+                border-radius:15px; position:relative;">
+    <!-- Khung nội dung QR -->
+
+        <span onclick="document.getElementById('qrModal').style.display='none'"
+              style="position:absolute; right:15px; top:10px;
+                     cursor:pointer; font-size:24px;">
+            &times;
+        </span>
+        <!-- Nút đóng popup QR -->
+
+        <h3>Quét mã để thanh toán</h3>
+
+        <p id="qrAmount"
+           style="color:#d70018; font-weight:bold;"></p>
+        <!-- Hiển thị số tiền cần thanh toán -->
+
+        <img id="qrImage" src=""
+             alt="QR Thanh Toan"
+             style="width:100%; border-radius:10px;
+                    border:1px solid #ddd;">
+        <!-- Hình ảnh QR do JS gán -->
+
+        <p style="font-size:12px; color:#666; margin-top:10px;">
+            Vui lòng nhập nội dung:
+            <b>THANH TOÁN SẢN PHẨM</b>
+        </p>
+        <!-- Hướng dẫn chuyển khoản -->
+
+        <button onclick="hoanTatThanhToan()"
+                style="background:#28a745; color:white;
+                       border:none; padding:10px 20px;
+                       border-radius:5px; cursor:pointer;
+                       margin-top:15px; width:100%;">
+            Tôi đã chuyển khoản xong
+        </button>
+        <!-- Xác nhận hoàn tất thanh toán -->
+    </div>
+</div>
+
 <script src="main.js"></script>
 <!-- File xử lý chung: auth, nav, giỏ hàng -->
 <script src="data.js"></script>
